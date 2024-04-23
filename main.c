@@ -5,7 +5,8 @@
 /**
  * main.c
  */
-unsigned int chord = 7;
+
+unsigned int chord = 4;
 
 int main(void) {
     WDTCTL = WDTPW | WDTHOLD;       // stop watchdog timer
@@ -14,6 +15,7 @@ int main(void) {
 
     // Configure PWM outputs
     P2DIR |= (BIT0 + BIT1 + BIT4 + BIT6);
+    P2DIR |= BIT7;
     P2SEL |= (BIT0 + BIT1 + BIT4 + BIT6);
 
     // Configure TimerA0 and TimerA1
@@ -25,7 +27,6 @@ int main(void) {
     TA1CCTL2 = OUTMOD_4 + CCIE;     // TA1CCR2 interrupt enabled
     TA0CCTL1 = OUTMOD_4 + CCIE;     // TA0CCR1 interrupt enabled
 
-
     set_chord(chord);
 
     __bis_SR_register(GIE);         // Enable global interrupts
@@ -35,39 +36,37 @@ int main(void) {
 }
 
 
-#pragma vector=TIMER1_A0_VECTOR                // Define TIMER0_A0 Interrupt Vector
-__interrupt  void TIMER1_A0_ISR(void)           // TIMER0_A1 Interrupt Service Routine
+// TimerA1 ISR (handles TA1.CCR0)
+#pragma vector=TIMER1_A0_VECTOR
+__interrupt void TIMER1_A0_ISR(void)
 {
     TA1CCR0 += period1;
-    __bic_SR_register_on_exit(LPM0_bits);        // Return in Wake-Up Condition
+    __bic_SR_register_on_exit(LPM0_bits);
 }
 
 
-#pragma  vector=TIMER1_A1_VECTOR                // Define TIMER0_A0 Interrupt Vector
-__interrupt  void TIMER1_A1_ISR(void)           // TIMER0_A1 Interrupt Service Routine
+// TimerA1 ISR (handles TA1.CCR1, TA1.CCR2)
+#pragma  vector=TIMER1_A1_VECTOR
+__interrupt void TIMER1_A1_ISR(void)
 {
     unsigned int temp;
     temp = TA1IV;
 
-    if (temp == TA1IV_TACCR1) {                 // Only if TA0 Interrupt Came From CCR1 Compare
+    if (temp == TA1IV_TACCR1) {
         TA1CCR1 += period2;
     }
     else if (temp == TA1IV_TACCR2) {
-         TA1CCR2 += period3;
+        TA1CCR2 += period3;
     }
-    __bic_SR_register_on_exit(LPM0_bits);       // Return in Wake-Up Condition
+    __bic_SR_register_on_exit(LPM0_bits);
 }
 
 
-#pragma vector=TIMER0_A1_VECTOR                // Define TIMER0_A0 Interrupt Vector
-__interrupt  void TIMER0_A1_ISR(void)          // TIMER0_A1 Interrupt Service Routine
+// TimerA0 ISR (handles TA0.CCR1)
+#pragma vector=TIMER0_A1_VECTOR
+__interrupt void TIMER0_A1_ISR(void)
 {
-//     unsigned int temp;
-//     temp = TA0IV;
-//     if (temp == TA0IV_TACCR1){                 // Only if TA0 Interrupt Came From CCR1 Compare
-//         period4 += C2;
-//         TA1CCR1 = period4;
-//     }
     TA0CCR1 += period4;
-     __bic_SR_register_on_exit(LPM0_bits);       // Return in Wake-Up Condition
+    P2OUT ^= BIT7;
+    __bic_SR_register_on_exit(LPM0_bits);
 }
