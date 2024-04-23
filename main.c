@@ -6,17 +6,16 @@
  * main.c
  */
 
-void init_wdt(void);
 
 // Global variables
-#define TEMPO 6000
+#define TEMPO 1500
 
-unsigned int chord = 0;
+
 unsigned int tempo_flag = 0;
 
 
 int main(void) {
-    WDTCTL = WDTPW | WDTHOLD;       // stop watchdog timer
+    WDTCTL = WDTPW | WDTHOLD;   // stop watchdog timer
 
     // Initialize ACLK for TimerA0
     BCSCTL3 |= LFXT1S_2;            // ACLK = VLO
@@ -28,8 +27,7 @@ int main(void) {
     P1DIR |= BIT0;
 
     // Configure output pins
-    P2DIR |= (BIT0 + BIT1 + BIT4 + BIT6);
-    P2SEL |= (BIT0 + BIT1 + BIT4 + BIT6);
+    P2SEL |= (BIT0 + BIT1 + BIT4);
 
     // Configure TimerA1 for PWM output
     TA1CTL = TASSEL_2 + MC_2;       // SMCLK, continuous-mode
@@ -44,20 +42,19 @@ int main(void) {
     TA0CCR0 = TEMPO;
 
     // Initialize chord and mode
+    chord = 0;
+    mode = 3;
     set_chord(chord);
+    set_mode(mode);
 
     __bis_SR_register(GIE);         // Enable global interrupts
-     while (1) {
-         if (tempo_flag == 1) {
-             chord += 1;
-             if (chord == 8) {
-                 chord = 0;
-             }
-             tempo_flag = 0;
-         }
-         set_chord(chord);
-         __bis_SR_register(LPM0_bits);       // Enter LPM0
-     }
+    while (1) {
+        if (tempo_flag == 1) {
+            next_note(mode);
+            tempo_flag = 0;
+        }
+        __bis_SR_register(LPM0_bits);       // Enter LPM0
+    }
 }
 
 
@@ -95,3 +92,4 @@ __interrupt void TIMER0_A0_ISR(void)
     tempo_flag = 1;
     __bic_SR_register_on_exit(LPM0_bits);
 }
+

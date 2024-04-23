@@ -24,10 +24,16 @@
 #define A2 568
 #define B2 506
 
+
 unsigned int period1, period2, period3, period4;
+unsigned int chord;
+unsigned int mode;
+unsigned int note;
 
 
 void set_chord(unsigned int chord);
+void set_mode(unsigned int mode);
+void next_note(unsigned int mode);
 
 
 #endif /* BUZZER_H_ */
