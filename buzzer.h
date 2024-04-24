@@ -26,8 +26,8 @@
 
 
 unsigned int period1, period2, period3, period4;
-unsigned int chord;
-unsigned int mode;
+int chord;
+int mode;
 unsigned int note;
 
 
