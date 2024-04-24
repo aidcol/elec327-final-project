@@ -2,15 +2,15 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-SHELL = cmd.exe
-
-CG_TOOL_ROOT := C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
+CG_TOOL_ROOT := /Applications/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS
 
 GEN_OPTS__FLAG := 
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
 "./buzzer.obj" \
+"./i2c.obj" \
+"./lcd.obj" \
 "./main.obj" \
 "../lnk_msp430g2553.cmd" \
 $(GEN_CMDS__FLAG) \
@@ -18,8 +18,8 @@ $(GEN_CMDS__FLAG) \
 
 -include ../makefile.init
 
-RM := DEL /F
-RMDIR := RMDIR /S/Q
+RM := rm -rf
+RMDIR := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -135,15 +135,15 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 elec327-final-project.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: MSP430 Linker'
-	"C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"elec327-final-project.map" --heap_size=80 --stack_size=80 -i"C:/ti/ccs1260/ccs/ccs_base/msp430/include" -i"C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/lib" -i"C:/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="elec327-final-project_linkInfo.xml" --use_hw_mpy=none --rom_model -o "elec327-final-project.out" $(ORDERED_OBJS)
+	"/Applications/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/bin/cl430" -vmsp --use_hw_mpy=none --advice:power=all --define=__MSP430G2553__ -g --printf_support=minimal --diag_warning=225 --diag_wrap=off --display_error_number -z -m"elec327-final-project.map" --heap_size=80 --stack_size=80 -i"/Applications/ti/ccs1260/ccs/ccs_base/msp430/include" -i"/Applications/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/lib" -i"/Applications/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="elec327-final-project_linkInfo.xml" --use_hw_mpy=none --rom_model -o "elec327-final-project.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "buzzer.obj" "main.obj" 
-	-$(RM) "buzzer.d" "main.d" 
+	-$(RM) "buzzer.obj" "i2c.obj" "lcd.obj" "main.obj" 
+	-$(RM) "buzzer.d" "i2c.d" "lcd.d" "main.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
