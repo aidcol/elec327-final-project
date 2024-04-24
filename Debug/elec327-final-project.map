@@ -1,7 +1,7 @@
 ******************************************************************************
-                  MSP430 Linker PC v21.6.1                     
+                  MSP430 Linker Unix v21.6.1                   
 ******************************************************************************
->> Linked Wed Apr 24 15:33:12 2024
+>> Linked Wed Apr 24 17:28:14 2024
 
 OUTPUT FILE NAME:   <elec327-final-project.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 0000c4be
@@ -163,14 +163,14 @@ MODULE SUMMARY
 
        Module                       code   ro data   rw data
        ------                       ----   -------   -------
-    .\
+    ./
        main.obj                     476    28        12     
        buzzer.obj                   420    0         14     
        i2c.obj                      34     2         2      
     +--+----------------------------+------+---------+---------+
        Total:                       930    30        28     
                                                             
-    C:\ti\ccs1260\ccs\tools\compiler\ti-cgt-msp430_21.6.1.LTS\lib\rts430_eabi.lib
+    /Applications/ti/ccs1260/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/lib/rts430_eabi.lib
        copy_decompress_lzss.c.obj   124    0         0      
        lsr16.asm.obj                76     0         0      
        autoinit.c.obj               66     0         0      

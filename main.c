@@ -1,6 +1,7 @@
 #include <msp430.h> 
 #include <buzzer.h>
 #include <string.h>
+#include <lcd.h>
 
 
 /**
@@ -46,6 +47,13 @@ int main(void) {
     set_chord(chord);
     set_mode(mode);
 
+    // Initialize Display text
+    _EINT();
+//    strcpy(str_chord, "C");
+//    strcpy(str_mode, "1");
+    LcdInit();
+
+
     __bis_SR_register(GIE);         // Enable global interrupts
     while (1) {
         if (tempo_flag == 1) {
@@ -58,6 +66,11 @@ int main(void) {
         }
 
         set_chord(chord);
+        LcdSetPosition(1,1); // Sets start of string to first character, first line
+        LcdWriteString(str_chord); // String constantly being written while in while loop.
+        LcdSetPosition(2,1); // Sets start of string to first character, first line
+        LcdWriteString(str_mode); // String constantly being written while in while loop.
+
         __bis_SR_register(LPM0_bits);       // Enter LPM0
     }
 }
@@ -103,11 +116,11 @@ __interrupt void TIMER0_A0_ISR(void)
 __interrupt void PORT1_ISR(void) {
     if ((P1IN & BIT0) == 0x00)  { //Check if button pressed is  button 1
         button_input = 1; //Set button input to show we pressed button 1
-        strcpy(str, "Button 1"); // Copy the new string into str
+        //strcpy(str, "Button 1"); // Copy the new string into str
     }
     else if ((P1IN & BIT3) == 0x00) { //Check if button pressed is button 2
         button_input = 2; //Set button input to show we pressed button 2
-        strcpy(str, "Button 2");
+        //strcpy(str, "Button 2");
     }
     else if ((P1IN & BIT4) == 0x00) {
         button_input = 3;
@@ -149,14 +162,14 @@ void check_buttons() {
         button_input = 0; // 0 is null value
         chord = chord - 1;
         if(chord == -1) {
-            chord = 7;
+            chord = 6;
         }
     }
 
     if (button_input == 2) {
         button_input = 0; // 0 is null value
         chord = chord + 1;
-        if(chord == 8) {
+        if(chord == 7) {
             chord = 0;
         }
     }
