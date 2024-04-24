@@ -68,7 +68,7 @@ void set_mode(unsigned int m) {
 
     switch(m) {
     case 0: // Chord mode
-        P2DIR = BIT0 + BIT1 + BIT4;
+        note = 0;
         break;
     case 1: // Up mode
         note = 3;
@@ -85,6 +85,9 @@ void set_mode(unsigned int m) {
 
 void set_note_outs(unsigned int note) {
     switch(note) {
+    case 0:
+        P2DIR = BIT0 + BIT1 + BIT4;
+        break;
     case 1:
         P2DIR = BIT0;
         break;
@@ -99,6 +102,10 @@ void set_note_outs(unsigned int note) {
 
 
 void next_note(unsigned int mode) {
+    if (mode == 0) {
+        note = 0;
+    }
+
     if (mode > 0) { // Chord mode is mode=0
         switch(mode) {
         case 1:     // Up mode
