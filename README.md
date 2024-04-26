@@ -30,5 +30,5 @@ After wiring up the MSPEGGIATOR, download all the .c files and .h files and run 
 # Demo Video
 Link: [https://rice.box.com/s/g15091qozm21yw360w6cgqeiamauzs9f] (https://rice.box.com/s/g15091qozm21yw360w6cgqeiamauzs9f).
 
-# Authors
-Aidan Colon, Maaz Zuberi, Hong-Ye Wang
+
+by Aidan Colon, Maaz Zuberi, Hong-Ye Wang for ELEC 327 Spring 2024.
