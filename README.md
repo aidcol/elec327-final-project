@@ -28,6 +28,6 @@ The circuit diagram below shows the wire connections for the MSPEGGIATOR. You ca
 After wiring up the MSPEGGIATOR, download all the .c files and .h files and run the main.c file with Code Composer Studio to start jamming!
 
 # Demo Video
-Link: [https://rice.box.com/s/g15091qozm21yw360w6cgqeiamauzs9f].
+Link: https://rice.box.com/s/g15091qozm21yw360w6cgqeiamauzs9f
 
 by Aidan Colon, Maaz Zuberi, Hong-Ye Wang for ELEC 327 Spring 2024.
