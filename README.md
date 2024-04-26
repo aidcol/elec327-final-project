@@ -1,4 +1,4 @@
-# Project Overview
+# MSPEGGIATOR Project Overview
 The MSPEGGIATOR is a simple arpeggiator built with the MSP430 that allows you to play the 7 chords in the C major (C, Dm, Em, F, G, Am, Bdim) in 4 different modes.
 - Mode 1. Chord:   plays the 3 notes in the chord simultaneously.
 - Mode 2. Up:      cycles from the lowest to highest note in the chord, for example C >> E >> G for the C chord. 
